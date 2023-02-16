@@ -6,28 +6,72 @@
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
-    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= stylesheet_pack_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
   <body>
     <header>
-    <% if user_signed_in? %>
-      <li>
-        <%= link_to '投稿フォーム', new_book_path %>
-      </li>
+      <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+          <a class="navbar-brand" href="/"><span>Bookers</span></a>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNavDropdown">
+            <ul class="navbar-nav ml-auto">
+              <% if user_signed_in? %>
+                <li>
+                  <%= link_to root_path do %>
+                    <i class="fas fa-home"></i>
+                  <% end %>Home
+                </li>
 
-      <li>
-        <%= link_to "Log out", destroy_user_session_path, method: :delete %>
-      </li>
-    <% else %>
-      <li>
-        <%= link_to "Sign up", new_user_registration_path %>
-      </li>
-      <li>
-        <%= link_to "Log in", new_user_session_path %>
-      </li>
-    <% end %>
+                <li>
+                  <%= link_to user_path(current_user.id) do %>
+                    <i class="fas fa-users"></i>
+                  <% end %>User
+                </li>
+
+                <li>
+                  <%= link_to books_path do %>
+                    <i class="fas fa-book-open"></i>
+                  <% end %>Books
+                </li>
+
+                <li>
+                  <%= link_to destroy_user_session_path, method: :delete do %>
+                    <i class="fas fa-sign-out-alt"></i>
+                  <% end %>Log out
+                </li>
+              <% else %>
+                <li>
+                  <%= link_to root_path do %>
+                    <i class="fas fa-home"></i>
+                  <% end %>Home
+                </li>
+                <li>
+                  <%= link_to about_path do %>
+                    <i class="fas fa-link"></i>
+                  <% end %>About
+                </li>
+                <li>
+                  <%= link_to new_user_registration_path do %>
+                    <i class="fas fa-user-plus"></i>
+                  <% end %>Sign up
+                </li>
+                <li>
+                  <%= link_to new_user_session_path do %>
+                    <i class="fas fa-sign-in-alt"></i>
+                  <% end %>Log in
+                </li>
+              <% end %>
+
+            </ul>
+          </div>
+        </div>
+      </nav>
+
     </header>
 
 
