@@ -11,12 +11,11 @@ class BooksController < ApplicationController
     @book.user_id = current_user.id
     if @book.save
       flash[:notice] = "You have created book successfully."
-      redirect_to book_path(@book.id)
+      redirect_to book_path(@book)
     else
       @books = Book.all
       @user = current_user
       render :index
-      # redirect_to books_path
     end
   end
 
@@ -50,7 +49,6 @@ class BooksController < ApplicationController
       flash[:notice] = "You have updated book successfully."
       redirect_to book_path(@book.id)
     else
-      @books = Book.all
       render :edit
     end
   end
