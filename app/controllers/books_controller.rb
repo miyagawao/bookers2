@@ -31,6 +31,7 @@ class BooksController < ApplicationController
     @user = @book.user
     @books = Book.all
     @book_comment =BookComment.new
+    @book_new = Book.new
   end
 
 
