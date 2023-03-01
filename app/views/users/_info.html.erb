@@ -1,25 +1,23 @@
-<%= form_with model: @user do |f| %>
-  <table class='table'>
-    <tr><%= image_tag @user.get_profile_image(100,100) %></tr>
-    <tr>
-  	  <th>name</th>
-  	    <td><%= @user.name %></td>
-    </tr>
-    <tr>
-  	  <th>introduction</th>
-  	    <td><%= @user.introduction %></td>
-    </tr>
-    <tr>
-      <th>folllows</th>
-  	    <td><%= link_to @user.followings.count, user_followings_path(@user) %></td>
-    </tr>
-    <tr>
-      <th>followers</th>
-  	    <td><%= link_to @user.followers.count, user_followers_path(@user) %></td>
-    </tr>
-  </table>
-  <% end %>
-  
+<table class='table'>
+  <tr><%= image_tag user.get_profile_image, size:'100x100' %></tr>
+  <tr>
+	  <th>name</th>
+	  <th><%= user.name %></th>
+  </tr>
+  <tr>
+	  <th>introduction</th>
+	  <th><%= user.introduction %></th>
+  </tr>
+  <tr>
+    <th>follows</th>
+    <th><%= link_to user.followings.count, user_followings_path(user) %></th>
+  </tr>
+  <tr>
+    <th>followers</th>
+    <th><%= link_to user.followers.count, user_followers_path(user) %></th>
+  </tr>
+</table>
+
 <div class='row'>
   <% if current_user != user %>
     <td><%= render "relationships/btn", user: user %></td>
@@ -28,4 +26,11 @@
       <i class="fas fa-user-cog"></i>
     <% end %>
   <% end %>
+
+  <% if current_user != user && current_user.following?(user) && user.following?(current_user) %>
+    <%= link_to 'chatを始める', chat_path(user.id), class: "ml-3" %>
+  <% end %>
 </div>
+
+
+
